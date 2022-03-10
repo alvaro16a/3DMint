@@ -29,17 +29,41 @@ public class Impresora3D extends Entity<Impresora3DID> {
         this.modelo="Ender 3 V2"; //impresora 3d con excelente relacion precio beneficio
     }
 
-    public void terminarImpresion(){
-        this.estado = new Estado(Estado.Fase.APAGADA);
+    public void terminarImpresion(int horasImprimidas){
+        if(this.estado.value()==Estado.Fase.IMPRIMIENDO) {
+            this.estado = new Estado(Estado.Fase.APAGADA);
+            if(horasImprimidas > 0){
+                this.horasDeImpresion += horasImprimidas;
+            }else{
+            throw new IllegalArgumentException("El tiempo de impresion de impresion debe ser mayor a cero");
+            }
+
+        }else{
+            throw new IllegalArgumentException("No se puede terminar una impresion que no se esta realizando");
+        }
     }
     public void iniciarImpresion(){
-        this.estado = new Estado(Estado.Fase.IMPRIMIENDO);
+        if(this.estado.value()==Estado.Fase.APAGADA) {
+            this.estado = new Estado(Estado.Fase.IMPRIMIENDO);
+        }else{
+            throw new IllegalArgumentException("No se puede iniciar una impresion si la maquina no esta disponible");
+        }
     }
     public void ImpresoraEnMantenimiento(){
-        this.estado = new Estado(Estado.Fase.MANTENIMIENTO);
+        if(this.estado.value()==Estado.Fase.APAGADA) {
+            this.estado = new Estado(Estado.Fase.MANTENIMIENTO);
+            this.horasDeImpresion=0;
+        }else{
+            throw new IllegalArgumentException("Solo se puede enviar la impresora a mantenimiento cuando halla terminado el trabajo");
+        }
     }
     public void ImpresoraAveriada(){
-        this.estado = new Estado(Estado.Fase.AVERIADO);
+        if(this.estado.value()!=Estado.Fase.AVERIADO) {
+            this.estado = new Estado(Estado.Fase.AVERIADO);
+            this.horasDeImpresion=0;
+        }else{
+            throw new IllegalArgumentException("La impresora ya esta reportada como averiada");
+        }
     }
 
     public Integer HorasDeImpresion() {
@@ -58,5 +82,5 @@ public class Impresora3D extends Entity<Impresora3DID> {
         return modelo;
     }
 
-    public
+
 }
