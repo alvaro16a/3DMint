@@ -29,6 +29,19 @@ public class Impresora3D extends Entity<Impresora3DID> {
         this.modelo="Ender 3 V2"; //impresora 3d con excelente relacion precio beneficio
     }
 
+    public void terminarImpresion(){
+        this.estado = new Estado(Estado.Fase.APAGADA);
+    }
+    public void iniciarImpresion(){
+        this.estado = new Estado(Estado.Fase.IMPRIMIENDO);
+    }
+    public void ImpresoraEnMantenimiento(){
+        this.estado = new Estado(Estado.Fase.MANTENIMIENTO);
+    }
+    public void ImpresoraAveriada(){
+        this.estado = new Estado(Estado.Fase.AVERIADO);
+    }
+
     public Integer HorasDeImpresion() {
         return horasDeImpresion;
     }
@@ -44,4 +57,6 @@ public class Impresora3D extends Entity<Impresora3DID> {
     public String Modelo() {
         return modelo;
     }
+
+    public
 }
