@@ -9,6 +9,9 @@ public class Estado implements ValueObject<Estado.Fase> {
     public Estado(Fase value){
         this.value =value;
     }
+    public Estado(){
+        this.value =Fase.APAGADA;
+    }
 
     @Override
     public Fase value(){

@@ -19,6 +19,13 @@ public class VolumenDeImoresion implements ValueObject<VolumenDeImoresion.Props>
         }
     }
 
+    public VolumenDeImoresion() {
+        this.alto = 25;
+        this.largo = 25;
+        this.ancho = 20;  //El volumen de impresion estandar es 25x25x20
+
+    }
+
     @Override
     public Props value() {
 
