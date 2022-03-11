@@ -3,6 +3,7 @@ package domain.granja;
 import co.com.sofka.domain.generic.AggregateEvent;
 import domain.Cliente.value.ClienteID;
 import domain.granja.event.GranjaCreada;
+import domain.granja.event.ImpresionIncluida;
 import domain.granja.event.ImpresoraIncluida;
 import domain.granja.value.GranjaID;
 import domain.granja.value.Impresora3DID;
@@ -26,5 +27,9 @@ public class Granja extends AggregateEvent<GranjaID> {
 
     public void agregarImpresora3D(Impresora3DID entityId){
         appendChange(new ImpresoraIncluida(entityId)).apply();
+    }
+
+    public void agregarImpresion(Stl stl){
+        appendChange(new ImpresionIncluida(stl)).apply();
     }
 }
