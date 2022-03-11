@@ -3,7 +3,9 @@ package domain.granja;
 import co.com.sofka.domain.generic.AggregateEvent;
 import domain.Cliente.value.ClienteID;
 import domain.granja.event.GranjaCreada;
+import domain.granja.event.ImpresoraIncluida;
 import domain.granja.value.GranjaID;
+import domain.granja.value.Impresora3DID;
 import domain.value.Stl;
 
 import java.util.List;
@@ -19,8 +21,10 @@ public class Granja extends AggregateEvent<GranjaID> {
     public Granja(GranjaID entityId) {
         super(entityId);
         appendChange(new GranjaCreada()).apply();
-        //Solo podra cambiar a cliente si esta suscrito
-        subscribe(new GranjaEventChange(this));
+        subscribe(new GranjaEventChange(this)); //Para realizar un cambio en el estado debo suscribirla
     }
 
+    public void agregarImpresora3D(Impresora3DID entityId){
+        appendChange(new ImpresoraIncluida(entityId)).apply();
+    }
 }

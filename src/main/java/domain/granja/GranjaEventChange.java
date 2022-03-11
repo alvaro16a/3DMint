@@ -2,6 +2,7 @@ package domain.granja;
 
 import co.com.sofka.domain.generic.EventChange;
 import domain.granja.event.GranjaCreada;
+import domain.granja.event.ImpresoraIncluida;
 
 import java.util.ArrayList;
 
@@ -11,6 +12,11 @@ public class GranjaEventChange extends EventChange {
         apply((GranjaCreada event) -> {
             granja.impresoras = new ArrayList<>();
             granja.stls = new ArrayList<>();
+        });
+
+        apply((ImpresoraIncluida event) ->{
+            granja.impresoras.add(new Impresora3D(event.Impresora3DID()));
+
         });
     }
 }
