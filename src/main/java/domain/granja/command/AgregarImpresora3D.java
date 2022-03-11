@@ -3,11 +3,11 @@ package domain.granja.command;
 import co.com.sofka.domain.generic.Command;
 import domain.granja.value.Impresora3DID;
 
-public class AgregarImpresora extends Command {
+public class AgregarImpresora3D extends Command {
 
     private final Impresora3DID entityId;
 
-    public AgregarImpresora(Impresora3DID entityId) {
+    public AgregarImpresora3D(Impresora3DID entityId) {
         this.entityId = entityId;
     }
 
