@@ -4,13 +4,16 @@ import co.com.sofka.domain.generic.Command;
 import domain.granja.value.GranjaID;
 
 public class CrearGranja extends Command {
-    private final GranjaID entityId;
 
-    public CrearGranja(GranjaID entityId) {
-        this.entityId = entityId;
+    private final GranjaID granjaID;
+
+
+    public CrearGranja(GranjaID granjaID) {
+        this.granjaID = granjaID;
+
     }
 
-    public GranjaID getEntityId() {
-        return entityId;
+    public GranjaID getGranjaID() {
+        return granjaID;
     }
 }
