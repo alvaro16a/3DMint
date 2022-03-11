@@ -88,6 +88,4 @@ public class Impresora3D extends Entity<Impresora3DID> {
         return modelo;
     }
 
-
-
 }
