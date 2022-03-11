@@ -1,8 +1,9 @@
 package domain.granja.command;
 
+import co.com.sofka.domain.generic.Command;
 import domain.granja.value.Impresora3DID;
 
-public class TerminarImpresion {
+public class TerminarImpresion extends Command {
 
     private final Impresora3DID impresora3DID;
 
