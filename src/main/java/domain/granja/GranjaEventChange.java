@@ -3,38 +3,38 @@ package domain.granja;
 import co.com.sofka.domain.generic.EventChange;
 import domain.granja.event.*;
 import domain.granja.value.Impresora3DID;
+import domain.value.Stl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GranjaEventChange extends EventChange {
     public GranjaEventChange(Granja granja) {
 
         apply((GranjaCreada event) -> {
-            granja.impresoras = new ArrayList<>();
-            granja.stlsPendientes = new ArrayList<>();
-            granja.stlsImprimiendose = new ArrayList<>();
+
+            granja.impresoras = new HashMap<>();
+            granja.stls = new ArrayList<>();
+
         });
 
         apply((ImpresoraIncluida event) ->{
-            granja.impresoras.add(new Impresora3D(event.Impresora3DID()));
+            granja.impresoras.put(event.Impresora3DID().value(),//convierto el Id en la llave
+                                new Impresora3D(event.Impresora3DID()));
 
         });
 
-        apply((ImpresionIncluida event) ->{
-            granja.stlsPendientes.add(event.getStl());
-        });
 
         apply((ImpresionTerminada event) ->{
-
-            Impresora3DID impresora3DID=event.Impresora3DID(); //obtiene el id de la impresora 3D que termino con el trabajo
-            int indexImpresora3D= granja.impresoras.indexOf(impresora3DID); //Obtiene el indece de esta impresora en la granja
-            Impresora3D impresora3D= granja.impresoras.get(indexImpresora3D); //obtiene la im
-            impresora3D.terminarImpresion(); //termina la impresion deacuerdo a lo establecido en la entidad Impresora
-            int indexSTL = granja.stlsImprimiendose.indexOf(impresora3D.Stl()); //obtiene el indice de la impresion terminada
-            granja.stlsImprimiendose.remove(indexSTL); //Elimina el STL de la lista de imprimiendose
+            Impresora3D impresora3D=granja.impresoras.get(event.getImpresora3DID());//uso el id como llave para obtener la impresora
+            impresora3D.terminarImpresion(); //uso la impresora para terminar la impresion
         });
 
-        apply((ImpresionIniciada event) -> {
+        apply((ImpresionIniciada event) ->{
+            Impresora3D impresora3D=granja.impresoras.get(event.getImpresora3DID());//uso el id como llave para obtener la impresora
+            Stl stl=granja.stls.get(0); //obtengo el primer stl pendiente
+            granja.stls.remove(0); //remuevo el stl de la lista de pendientes
+            impresora3D.iniciarImpresion(stl);
 
         });
     }

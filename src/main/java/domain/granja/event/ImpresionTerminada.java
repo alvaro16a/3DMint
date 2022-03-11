@@ -12,7 +12,7 @@ public class ImpresionTerminada extends DomainEvent {
         this.impresora3DID = impresora3DID;
     }
 
-    public Impresora3DID Impresora3DID() {
+    public Impresora3DID getImpresora3DID() {
         return impresora3DID;
     }
 }

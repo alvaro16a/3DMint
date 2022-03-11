@@ -8,13 +8,14 @@ import domain.granja.value.Impresora3DID;
 import domain.value.Stl;
 
 import java.util.List;
+import java.util.Map;
 
 public class Granja extends AggregateEvent<GranjaID> {
 
-    protected List<Impresora3D> impresoras;
-    protected List<Stl> stlsPendientes;
-    protected List<Stl> stlsImprimiendose;
-    protected ClienteID clienteID;
+
+    protected Map<String,Impresora3D> impresoras;
+    protected List<Stl> stls;
+
 
     public Granja(GranjaID entityId) {
         super(entityId);
@@ -34,8 +35,10 @@ public class Granja extends AggregateEvent<GranjaID> {
         appendChange(new ImpresionTerminada(entityId)).apply();
     }
 
-    public void IniciarImpresion(Impresora3DID entityId, Stl stl){
-        appendChange(new ImpresionIniciada(entityId, stl)).apply();
+
+    public void iniciarImpresion(Impresora3DID entityId){
+        appendChange(new ImpresionIniciada(entityId)).apply();
+
     }
 
 }
