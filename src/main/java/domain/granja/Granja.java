@@ -11,10 +11,11 @@ import domain.granja.value.Impresora3DID;
 import domain.value.Stl;
 
 import java.util.List;
+import java.util.Map;
 
 public class Granja extends AggregateEvent<GranjaID> {
 
-    protected List<Impresora3D> impresoras;
+    protected Map<String,Impresora3D> impresoras;
     protected List<Stl> stls;
     protected ClienteID clienteID;
 
