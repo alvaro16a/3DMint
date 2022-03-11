@@ -1,2 +1,4 @@
-package domain.value;public class Pieza {
+package domain.value;
+
+public class Pieza {
 }
