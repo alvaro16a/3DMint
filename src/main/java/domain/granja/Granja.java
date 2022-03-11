@@ -19,7 +19,7 @@ public class Granja extends AggregateEvent<GranjaID> {
 
     public Granja(GranjaID entityId) {
         super(entityId);
-        appendChange(new GranjaCreada()).apply();
+        appendChange(new GranjaCreada(entityId)).apply();
         subscribe(new GranjaEventChange(this)); //Para realizar un cambio en el estado debo suscribirla
     }
 
@@ -40,5 +40,7 @@ public class Granja extends AggregateEvent<GranjaID> {
         appendChange(new ImpresionIniciada(entityId)).apply();
 
     }
+
+
 
 }
