@@ -1,60 +1,54 @@
 package domain.granja.value;
 
 import co.com.sofka.domain.generic.ValueObject;
+import domain.value.Dificultad;
+import domain.value.Material;
 
 public class Stl implements ValueObject<Stl.Props> {
 
     private final String nombre;
     private final Integer tiempoDeImpresion;
-    private final String  Material;
-    private final Integer  ancho;
+    private final Material material;
+    private final Dificultad dificultad;
 
-
-    public Stl(Integer alto, Integer largo, Integer ancho) {
-        if(alto <= 0 || largo <=0 || ancho <= 0){
-            throw new RuntimeException("el volumen de impresion debe ser positivo");
-        }else{
-            this.alto = alto;
-            this.largo = largo;
-            this.ancho = ancho;
-        }
-    }
-
-    public Stl() {
-        this.alto = 25;
-        this.largo = 25;
-        this.ancho = 20;  //El volumen de impresion estandar es 25x25x20
-
+    public Stl(String nombre, Integer tiempoDeImpresion) {
+        this.nombre = nombre;
+        this.tiempoDeImpresion = tiempoDeImpresion;
+        this.material = new Material();
+        this.dificultad = new Dificultad();
     }
 
     @Override
-    public Stl.Props value() {
+    public Props value() {
 
-        return new VolumenDeImoresion.Props() {
+        return new Props() {
             @Override
-            public int alto() {
-                return alto;
+            public String nombre() {
+                return nombre;
             }
 
             @Override
-            public int largo() {
-                return largo;
+            public Integer tiempoDeImpresion() {
+                return tiempoDeImpresion;
             }
 
             @Override
-            public int ancho() {
-                return ancho;
+            public Material materia() {
+                return material;
             }
 
+            @Override
+            public Dificultad dificultad() {
+                return dificultad;
+            }
         };
+
     }
 
     public interface Props{
-
-        int alto();
-        int largo();
-        int ancho();
-
-
+        String nombre();
+        Integer tiempoDeImpresion();
+        Material materia();
+        Dificultad dificultad();
     }
 }
