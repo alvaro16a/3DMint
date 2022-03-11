@@ -1,7 +1,6 @@
 package domain.granja;
 
 import co.com.sofka.domain.generic.AggregateEvent;
-import domain.Cliente.value.ClienteID;
 import domain.granja.event.*;
 import domain.granja.value.GranjaID;
 import domain.granja.value.Impresora3DID;
@@ -40,7 +39,5 @@ public class Granja extends AggregateEvent<GranjaID> {
         appendChange(new ImpresionIniciada(entityId)).apply();
 
     }
-
-
 
 }

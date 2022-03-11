@@ -1,4 +1,4 @@
-package domain.Cliente.value;
+package domain.cliente.value;
 
 public class InformacionDeContacto {
 }

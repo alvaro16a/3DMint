@@ -1,4 +1,4 @@
-package domain.Cliente;
+package domain.cliente;
 
 public class Trabajo {
 }

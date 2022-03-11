@@ -1,7 +1,7 @@
-package domain.Cliente;
+package domain.cliente;
 
 import co.com.sofka.domain.generic.AggregateEvent;
-import domain.Cliente.value.ClienteID;
+import domain.cliente.value.ClienteID;
 
 public class Cliente extends AggregateEvent<ClienteID> {
 
