@@ -2,10 +2,7 @@ package domain.granja;
 
 import co.com.sofka.domain.generic.AggregateEvent;
 import domain.Cliente.value.ClienteID;
-import domain.granja.event.GranjaCreada;
-import domain.granja.event.ImpresionIncluida;
-import domain.granja.event.ImpresionTerminada;
-import domain.granja.event.ImpresoraIncluida;
+import domain.granja.event.*;
 import domain.granja.value.GranjaID;
 import domain.granja.value.Impresora3DID;
 import domain.value.Stl;
@@ -15,7 +12,8 @@ import java.util.List;
 public class Granja extends AggregateEvent<GranjaID> {
 
     protected List<Impresora3D> impresoras;
-    protected List<Stl> stls;
+    protected List<Stl> stlsPendientes;
+    protected List<Stl> stlsImprimiendose;
     protected ClienteID clienteID;
 
     public Granja(GranjaID entityId) {
@@ -35,4 +33,9 @@ public class Granja extends AggregateEvent<GranjaID> {
     public void terminarImpresion(Impresora3DID entityId){
         appendChange(new ImpresionTerminada(entityId)).apply();
     }
+
+    public void IniciarImpresion(Impresora3DID entityId, Stl stl){
+        appendChange(new ImpresionIniciada(entityId, stl)).apply();
+    }
+
 }
