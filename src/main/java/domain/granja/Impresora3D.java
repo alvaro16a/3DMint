@@ -37,15 +37,11 @@ public class Impresora3D extends Entity<Impresora3DID> {
         this.modelo="Ender 3 V2"; //impresora 3d con excelente relacion precio beneficio
     }
 
-    public void terminarImpresion(int horasImprimidas){
+    public void terminarImpresion(){
         if(this.estado.value()==Estado.Fase.IMPRIMIENDO) {
             this.estado = new Estado(Estado.Fase.APAGADA);
-            if(horasImprimidas > 0){
-                this.horasDeImpresion += horasImprimidas;
-                this.pieza=new Pieza(stl.value().nombre(),new Material());
-            }else{
-            throw new IllegalArgumentException("El tiempo de impresion de impresion debe ser mayor a cero");
-            }
+            this.horasDeImpresion += stl.value().tiempoDeImpresion();
+            this.pieza=new Pieza(stl.value().nombre(),new Material());
         }else{
             throw new IllegalArgumentException("No se puede terminar una impresion que no se esta realizando");
         }
@@ -88,4 +84,11 @@ public class Impresora3D extends Entity<Impresora3DID> {
         return modelo;
     }
 
+    public Pieza Pieza() {
+        return pieza;
+    }
+
+    public Stl Stl() {
+        return stl;
+    }
 }

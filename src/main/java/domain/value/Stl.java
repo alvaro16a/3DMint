@@ -11,15 +11,25 @@ public class Stl implements ValueObject<Stl.Props> {
     private final Dificultad dificultad;
 
     public Stl(String nombre, Integer tiempoDeImpresion) {
-        this.nombre = nombre;
-        this.tiempoDeImpresion = tiempoDeImpresion;
-        this.dificultad = new Dificultad();
+        this.nombre = Objects.requireNonNull(nombre);
+        if(tiempoDeImpresion <= 0){
+            throw new RuntimeException("el tiempo de impresion debe ser positivo");
+        }else{
+            this.tiempoDeImpresion = tiempoDeImpresion;
+            this.dificultad = new Dificultad();
+        }
+
     }
 
     public Stl(String nombre, Integer tiempoDeImpresion, Dificultad dificultad) {
         this.nombre = Objects.requireNonNull(nombre);
-        this.tiempoDeImpresion = tiempoDeImpresion;
-        this.dificultad = dificultad;
+        if(tiempoDeImpresion <= 0){
+            throw new RuntimeException("el tiempo de impresion debe ser positivo");
+        }else{
+            this.tiempoDeImpresion = tiempoDeImpresion;
+            this.dificultad = dificultad;
+        }
+
     }
 
     @Override
