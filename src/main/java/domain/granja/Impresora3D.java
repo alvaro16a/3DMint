@@ -4,6 +4,11 @@ import co.com.sofka.domain.generic.Entity;
 import domain.granja.value.Estado;
 import domain.granja.value.Impresora3DID;
 import domain.granja.value.VolumenDeImoresion;
+import domain.value.Material;
+import domain.value.Pieza;
+import domain.value.Stl;
+
+import java.util.Objects;
 
 public class Impresora3D extends Entity<Impresora3DID> {
 
@@ -11,6 +16,9 @@ public class Impresora3D extends Entity<Impresora3DID> {
     private Estado estado;
     private VolumenDeImoresion volumenDeImoresion;
     private String modelo;
+    private Pieza pieza;
+    private Stl stl;
+
 
 
     public Impresora3D(Impresora3DID entityId,Estado estado, VolumenDeImoresion volumenDeImoresion,String modelo) {
@@ -34,17 +42,18 @@ public class Impresora3D extends Entity<Impresora3DID> {
             this.estado = new Estado(Estado.Fase.APAGADA);
             if(horasImprimidas > 0){
                 this.horasDeImpresion += horasImprimidas;
+                this.pieza=new Pieza(stl.value().nombre(),new Material());
             }else{
             throw new IllegalArgumentException("El tiempo de impresion de impresion debe ser mayor a cero");
             }
-
         }else{
             throw new IllegalArgumentException("No se puede terminar una impresion que no se esta realizando");
         }
     }
-    public void iniciarImpresion(){
+    public void iniciarImpresion(Stl stl){
         if(this.estado.value()==Estado.Fase.APAGADA) {
             this.estado = new Estado(Estado.Fase.IMPRIMIENDO);
+            this.stl= Objects.requireNonNull(stl);
         }else{
             throw new IllegalArgumentException("No se puede iniciar una impresion si la maquina no esta disponible");
         }
@@ -69,18 +78,16 @@ public class Impresora3D extends Entity<Impresora3DID> {
     public Integer HorasDeImpresion() {
         return horasDeImpresion;
     }
-
     public Estado Estado() {
         return estado;
     }
-
     public VolumenDeImoresion VolumenDeImoresion() {
         return volumenDeImoresion;
     }
-
     public String Modelo() {
         return modelo;
     }
+
 
 
 }

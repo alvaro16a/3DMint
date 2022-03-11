@@ -1,21 +1,25 @@
-package domain.granja.value;
+package domain.value;
 
 import co.com.sofka.domain.generic.ValueObject;
-import domain.value.Dificultad;
-import domain.value.Material;
+
+import java.util.Objects;
 
 public class Stl implements ValueObject<Stl.Props> {
 
     private final String nombre;
     private final Integer tiempoDeImpresion;
-    private final Material material;
     private final Dificultad dificultad;
 
     public Stl(String nombre, Integer tiempoDeImpresion) {
         this.nombre = nombre;
         this.tiempoDeImpresion = tiempoDeImpresion;
-        this.material = new Material();
         this.dificultad = new Dificultad();
+    }
+
+    public Stl(String nombre, Integer tiempoDeImpresion, Dificultad dificultad) {
+        this.nombre = Objects.requireNonNull(nombre);
+        this.tiempoDeImpresion = tiempoDeImpresion;
+        this.dificultad = dificultad;
     }
 
     @Override
@@ -33,22 +37,15 @@ public class Stl implements ValueObject<Stl.Props> {
             }
 
             @Override
-            public Material materia() {
-                return material;
-            }
-
-            @Override
             public Dificultad dificultad() {
                 return dificultad;
             }
         };
-
     }
 
     public interface Props{
         String nombre();
         Integer tiempoDeImpresion();
-        Material materia();
         Dificultad dificultad();
     }
 }
